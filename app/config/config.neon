@@ -1,0 +1,28 @@
+parameters:
+        # AuthMe hash
+	authmeHash: 'MD5'
+
+php:
+	date.timezone: Europe/Prague
+
+
+nette:
+	application:
+		errorPresenter: Error
+		mapping:
+			*: App\*Module\Presenters\*Presenter
+
+	session:
+		expiration: 14 days
+
+
+services:
+	- App\RouterFactory
+	router: @App\RouterFactory::createRouter
+	authenticator: Forum\Authenticator
+	amr: Forum\AuthmeRepository
+	ur: Forum\UserRepository
+	cr: Forum\CategoriesRepository
+	tr: Forum\TopicsRepository
+	rr: Forum\RepliesRepository
+	mr: Forum\MessageRepository

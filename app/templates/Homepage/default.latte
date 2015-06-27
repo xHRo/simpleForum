@@ -1,0 +1,122 @@
+{block content}
+<!-- CONTENT -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9 mainContent">
+            <div class="title-content">
+                <h1>Hot Topics</h1>
+            </div>
+            <div class="mainContent-text">
+                <table id="hotTopics">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Category</th>
+                        <th>Last Post By</th>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>C/C++</td>
+                        <td>Andrew</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>Python</td>
+                        <td>John</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>Java</td>
+                        <td>James</td>
+                    </tr>
+                </table>
+            </div>
+
+
+
+            <div class="title-content">
+                <h1>Categories</h1>
+            </div>
+            <div class="mainContent-text">
+
+                <table id="customers">
+                    <tr>
+                        <th>Category</th>
+                        <th>Number of Topics</th>
+                        <th>Number of Replies</th>
+                    </tr>
+                    {foreach $categories as $category}
+                        <tr>
+                            <td><a href="{link ViewCategory:default $category->id}">{$category->name}</a>
+                                <p class="tfooter">{$category->description}</p></td>
+                            <td><p class="stats">{$numTopics[$category['id']]}</p></td>
+                            <td>{$numReplies[$category['id']]}</td>
+                        {/foreach}
+                </table>
+
+            </div>               
+
+
+        </div>
+
+        <div class="col-md-3 background-sidebar">
+            <div class="title-sidebar">
+                <h1>Last Topics</h1>
+            </div>
+            <div class="sidebarContent">
+
+                <table id="hotTopics">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Last Post By</th>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>Andrew</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>John</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>James</td>
+                    </tr>
+
+
+                </table>
+            </div>
+
+
+            <div class="title-sidebar">
+                <h1>Best Users</h1>
+            </div>
+            <div class="sidebarContent">
+                <table id="hotTopics">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Last Post By</th>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>Andrew</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>John</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>James</td>
+                    </tr>
+
+
+                </table>
+            </div>
+
+
+            
+
+        </div>           
+    </div>
+
+</div>

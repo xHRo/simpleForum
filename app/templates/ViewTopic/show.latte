@@ -1,0 +1,182 @@
+{block content}
+    <!-- CONTENT -->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9 mainContent">
+                
+                {if $user->isLoggedIn() && ($user->getIdentity()->user_in_role != 'newbie ')}
+                    
+            <a href="{link CreateTopic:default}" class="btn btn-primary btn-lg" role="button">
+                Create New Topic
+            </a>
+            {if $user->getIdentity()->user_in_role == "admin" && $isLocked == 0}
+            <a n:href="lockTopic!" class="btn btn-danger btn-lg" role="button">
+                Lock Topic
+            </a>
+            {/if}
+            
+            
+                {/if}
+                <div class="title-content">
+                    <h1>{$topic->title}</h1>
+                        
+                </div>
+                
+                    <li id="main-topic" class="topic topic">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="user-info">
+                                    <img class="avatar pull-left" src="{$baseUrl}/www/images/avatars/{$usernameTable->avatar}"/>
+                                    <ul>
+                                        <li><strong>{$usernameTable->username}</strong></li>
+                                        <li>{$usernameTable->numPosts} Posts</li>
+                                       
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-9">
+                                <div class="topic-content pull right">
+                                    <div class="content pull right">
+                                        {$topic->body}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                
+                
+   
+                    
+                    {foreach $replies as $reply}
+                    <li class="topic topic">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="user-info">
+                                    <img class="avatar pull-left" src="{$baseUrl}/www/images/avatars/{$userInfo[$reply->id]->avatar}" />
+                                    <ul>
+                                        <li><strong>{$userInfo[$reply->id]->name}</strong></li>
+                                        <li>{$userInfo[$reply->id]->numPosts} Posts</li>
+                                        <li><a n:href="decreaseKarma! $reply->id"><button>-</button></a>Karma: {$replyInfo[$reply->id]}<a n:href="increaseKarma! $reply->id"><button>+</button></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="col-md-9">
+                                <div class="topic-content pull right">
+                                    <div class="content pull right">
+                                        {$reply->body}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>        
+                    {/foreach}
+                    
+                    <div style="text-align: center">
+                        <ul class="pagination" style="margin: 0 0 15px;">
+                            <li {if $paginator->first}class="disabled"{/if}><a {if $paginator->first == false}href="{link ViewTopic:show $topicId, 1}"{/if}>&laquo;</a></li>
+                            {for $i = 1; $i <= $paginator->pageCount; $i++}<li {if $paginator->getPage() == $i}class="active"{/if}><!--PAGE--><a href="{link ViewTopic:show $topicId, $i}">{$i}</a></li>{/for}
+                            <li {if $paginator->last}class="disabled"{/if}><a {if $paginator->last == false}href="{link ViewTopic:show $topicId, $paginator->pageCount}"{/if}>&raquo;</a></li>
+                        </ul>
+                    </div>                     
+                        
+                    
+                    {if $user->isLoggedIn() && $isLocked == 0}
+                    {control replyForm}    
+                    {/if}
+            </div>
+            
+            
+        <div class="col-md-3 background-sidebar">
+            <div class="title-sidebar">
+                <h1>Last Topics</h1>
+            </div>
+            <div class="sidebarContent">
+
+                <table id="hotTopics">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Last Post By</th>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>Andrew</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>John</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>James</td>
+                    </tr>
+
+
+                </table>
+            </div>
+
+
+            <div class="title-sidebar">
+                <h1>Recent Replies</h1>
+            </div>
+            <div class="sidebarContent">
+                <table id="hotTopics">
+                    <tr>
+                        <th>Topic</th>
+                        <th>Last Post By</th>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>Andrew</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>John</td>
+                    </tr>
+                    <tr>
+                        <td>Some Topic</td>
+                        <td>James</td>
+                    </tr>
+
+
+                </table>
+            </div>
+
+
+            <div class="title-sidebar">
+                <h1>Best Users</h1>
+            </div>
+            <div class="sidebarContent">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Topic</th>
+                            <th>Replies</th>
+                            <th>Last Post By</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Tanmay</td>
+                            <td>Bangalore</td>
+                            <td>560001</td>
+                        </tr>
+                        <tr>
+                            <td>Sachin</td>
+                            <td>Mumbai</td>
+                            <td>400003</td>
+                        </tr>
+                        <tr>
+                            <td>Uma</td>
+                            <td>Pune</td>
+                            <td>411027</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>  
+        </div>
+   
+    </div>
+    

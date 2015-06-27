@@ -1,0 +1,16 @@
+{block content}
+<h2>Sent Messages</h2>
+{foreach $sentMessages as $message}
+    <hr>
+    <h4>{$message['title']}</h4>
+    {$message['message']}
+{/foreach}
+
+<h2>Received Messages</h2>
+{foreach $recievedMessages as $message}
+    <hr>
+    <h4>{$message['title']}</h4>
+    {$message['message']}
+{/foreach}
+
+{control createMessageForm}

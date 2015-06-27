@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{ifset #title}{include title|striptags} | {/ifset}CodeIt Forum</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/bootstrap.css">
+        <link rel="stylesheet" media="screen,projection,tv" href="{$basePath}/css/screen.css">
+
+        <link rel="shortcut icon" href="{$basePath}/favicon.ico">
+        <script src='https://www.google.com/recaptcha/api.js'></script>
+        {block head}{/block}
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+          <script src="../bower_components/html5shiv/dist/html5shiv.js"></script>
+          <script src="../bower_components/respond/dest/respond.min.js"></script>
+        <![endif]-->
+    </head>
+
+    <body>    
+        <script> document.documentElement.className += ' js'</script>
+        <div n:foreach="$flashes as $flash" class="flash {$flash->type}">{$flash->message}</div>
+
+        <!-- NAVIGATION -->
+        <div class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a href="../" class="navbar-brand">CodeIt Forum / logo</a>
+
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav">
+                        <li><a href="#aboutModal" role="button" data-toggle="modal">About</a></li>
+                    </ul>
+                    <div class="navbar-collapse collapse">
+
+
+                        {if !$user->isLoggedIn()}
+                            {form loginForm, class=>'navbar-form navbar-right'}
+                                <div class="form-group">{input username, class=>'form-control',placeholder=>'Username'}</div>
+                                <div class="form-group">{input password, class=>'form-control',placeholder=>'Heslo'}</div>
+                                {input send, class=>'btn btn-success'}
+                                <a href="{link SignUp:default}" class="btn btn-danger" role="button">
+                                    Sign Up
+                                </a>
+                            {/form}
+                        {else}
+                            <ul class="nav navbar-nav navbar-right">
+                                {if $user->isInRole('admin')} {* potom to prerobiť, aby sa tam dalo dať admin, nie 4 *}
+                                    <li><a n:href="Admin:">Administrace</a></li>
+                                    {/if}
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{$user->identity->email}<b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="{link EditProfile:default}">Edit Profile</a></li>
+                                        <li><a n:href="Message:">Messages</a></li>
+                                        <li><a n:href="logout!">Odhlásit</a></li>
+                                    </ul>
+                                </li>
+
+                            </ul>
+                        {/if}
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- END OF NAVIGATION -->
+
+        <!--ABOUT FORUM -->
+        <div id="aboutModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h2 class="text-center">About this forum</h2>
+                    </div>
+                    <div class="modal-body">
+                        <div class="col-md-12 text-center">
+                            The purpose of this forum is the mutual assistance between programmers.
+                            <hr>
+                            <ul>
+                                <b>What's new?</b>
+                                <li>The directory layout</li>
+                                <li>Nette Framework is installed</li>
+                                <li>.htaccess files are configured</li>
+                                <li>Basic design is completed</li>
+                                <li>Database is created</li>
+                            </ul>
+
+
+                            <hr>
+                            Actual version of CodeIt Forum: 0.1 (First Phase)<br>
+                            Created by: Martin Fiala
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn" data-dismiss="modal" aria-hidden="true">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {include content}
+
+        <!-- END OF CONTENT -->                
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12 myFooter">
+                    2014/2015 - Copyright c Martin Fiala.
+                </div>
+            </div>
+        </div>
+
+
+
+
+        {block scripts}
+        <script src="{$basePath}/js/jquery.js"></script>
+        <script src="{$basePath}/js/netteForms.js"></script>
+        <script src="{$basePath}/js/main.js"></script>
+        <script src="{$basePath}/js/bootstrap.js"></script>
+        {/block}
+
+    </body>
+</html>
